@@ -1323,14 +1323,6 @@ class TableStructureController extends TableController
                 $attributes[$rownum] = 'on update CURRENT_TIMESTAMP';
             }
 
-            if (!isset($field['Default'])) {
-                if ($field['Null'] == 'YES') {
-                    $field = array_merge($field, ['Default' => '<em>NULL</em>']);
-                }
-            } else {
-                $field = array_merge($field, ['Default' => $field['Default']]);
-            }
-
             $displayed_fields[$rownum] = new \stdClass();
             $displayed_fields[$rownum]->text = $field['Field'];
             $displayed_fields[$rownum]->icon = "";
@@ -1353,14 +1345,13 @@ class TableStructureController extends TableController
         }
 
         $engine = $this->table_obj->getStorageEngine();
-        $foreignKeySupported = Util::isForeignKeySupported($engine);
         return $this->template->render('table/structure/display_structure', [
             'url_params' => [
                 'db' => $this->db,
                 'table' => $this->table,
             ],
             'is_foreign_key_supported' => Util::isForeignKeySupported($engine),
-            'displayIndexesHtml' => $foreignKeySupported ? Index::getHtmlForDisplayIndexes() : null,
+            'displayIndexesHtml' => Index::getHtmlForDisplayIndexes(),
             'cfg_relation' => $this->relation->getRelationsParam(),
             'hide_structure_actions' => $hideStructureActions,
             'db' => $this->db,
