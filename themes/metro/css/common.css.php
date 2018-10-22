@@ -168,11 +168,12 @@ body#loginform #page_content {
     margin: 0 !important;
     padding: 20px;
     margin-top: 10% !important;
-    height: 240px;
+    min-height: 240px;
 }
 
 body#loginform div.container
 {
+    color: <?php echo $GLOBALS['cfg']['MainBackground']; ?>;
     text-align: <?php echo $left; ?>;
     width: 48em;
     margin-left: auto;
@@ -957,6 +958,7 @@ td .icon {
 
 /* message boxes: error, confirmation */
 #pma_errors, #pma_demo, #pma_footer {
+    position: relative;
     padding: 20px;
 }
 
@@ -1134,6 +1136,10 @@ td.disabled {
 
 .nowrap {
     white-space: nowrap;
+}
+
+.font_weight_bold{
+    font-weight: bold;
 }
 
 /******************************************************************************/

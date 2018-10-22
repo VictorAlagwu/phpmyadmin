@@ -10,11 +10,16 @@ phpMyAdmin - ChangeLog
 - issue #14296 Enable strict mode in PHP files
 - issue #13627 Increase field width for editing varchar fields
 - issue #12603 Show warning for users with the default values for controluser and controlpass
-- issue        Fix rendering of column comments in Safari, improve display in all browsers (pull request #14589).
+- issue #14589 Fix rendering of column comments in Safari, improve display in all browsers
+- issue #14330 New features for csv import plugin
 
 4.8.4 (not yet released)
 - issue #14452 Remove hash param in edit query URL
 - issue #14295 Issue in Changing theme
+- issue #13267 Ensure that database names with '.' are handled properly when DisableIS is true
+- issue #14438 Invisible Icon "Show Full Queries"
+- issue #14133 CSS issue in Designer
+- issue #14447 Error while copying database (pma__column_info)
 
 4.8.3 (2018-08-22)
 - issue #14314 Error when naming a database '0'

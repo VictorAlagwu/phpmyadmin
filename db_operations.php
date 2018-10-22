@@ -42,8 +42,9 @@ $scripts->addFile('db_operations.js');
 
 $sql_query = '';
 
-$operations = new Operations();
-$relationCleanup = new RelationCleanup();
+$relation = new Relation($GLOBALS['dbi']);
+$operations = new Operations($GLOBALS['dbi'], $relation);
+$relationCleanup = new RelationCleanup($GLOBALS['dbi'], $relation);
 
 /**
  * Rename/move or copy database
@@ -217,8 +218,6 @@ if (strlen($GLOBALS['db']) > 0
 /**
  * Settings for relations stuff
  */
-$relation = new Relation($GLOBALS['dbi']);
-
 $cfgRelation = $relation->getRelationsParam();
 
 /**

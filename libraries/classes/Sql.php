@@ -52,12 +52,18 @@ class Sql
     private $transformations;
 
     /**
+     * @var Operations $operations
+     */
+    private $operations;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->relation = new Relation($GLOBALS['dbi']);
-        $this->relationCleanup = new RelationCleanup();
+        $this->relationCleanup = new RelationCleanup($GLOBALS['dbi'], $this->relation);
+        $this->operations = new Operations($GLOBALS['dbi'], $this->relation);
         $this->transformations = new Transformations();
     }
 
@@ -2304,7 +2310,7 @@ EOT;
      * @param string|null         $sql_query_for_bookmark the sql query to be stored as bookmark
      * @param array|null          $extra_data             extra data
      * @param string|null         $message_to_show        message to show
-     * @param string|null         $message                message
+     * @param Message|string|null $message                message
      * @param array|null          $sql_data               sql data
      * @param string              $goto                   goto page url
      * @param string              $pmaThemeImage          uri of the PMA theme image
@@ -2329,7 +2335,7 @@ EOT;
         ?string $sql_query_for_bookmark,
         $extra_data,
         ?string $message_to_show,
-        ?string $message,
+        $message,
         $sql_data,
         $goto,
         $pmaThemeImage,
@@ -2392,8 +2398,7 @@ EOT;
                 isset($extra_data) ? $extra_data : null
             );
 
-        $operations = new Operations();
-        $warning_messages = $operations->getWarningMessagesArray();
+        $warning_messages = $this->operations->getWarningMessagesArray();
 
         // No rows returned -> move back to the calling page
         if ((0 == $num_rows && 0 == $unlim_num_rows)
